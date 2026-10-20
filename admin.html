@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#651d2b"><title>Quản trị thiệp cưới</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-page">
+  <header class="admin-header"><div><h1>Quản trị thiệp cưới</h1><p>Chỉnh sửa nội dung và quản lý phản hồi khách mời</p></div><a class="button" href="index.html" target="_blank" rel="noreferrer">Xem thiệp ↗</a></header>
+  <div class="admin-layout">
+    <aside class="admin-sidebar" aria-label="Các mục quản trị">
+      <button class="admin-tab active" data-panel="content">Nội dung thiệp</button>
+      <button class="admin-tab" data-panel="photos">Album & ảnh bìa</button>
+      <button class="admin-tab" data-panel="rsvps">Khách mời RSVP</button>
+      <button class="admin-tab" data-panel="backup">Sao lưu dữ liệu</button>
+    </aside>
+    <main class="admin-main">
+      <section class="admin-panel active" id="panel-content">
+        <h2>Nội dung thiệp</h2><p class="panel-desc">Thay đổi thông tin bên dưới, sau đó lưu để cập nhật thiệp trên cùng trình duyệt.</p>
+        <form id="contentForm" class="admin-form">
+          <div class="field"><label for="bride">Tên cô dâu</label><input id="bride" name="bride" required maxlength="80"></div>
+          <div class="field"><label for="groom">Tên chú rể</label><input id="groom" name="groom" required maxlength="80"></div>
+          <div class="field full"><label for="eyebrow">Dòng chữ nhỏ trên đầu</label><input id="eyebrow" name="eyebrow" maxlength="100"></div>
+          <div class="field full"><label for="heroMessage">Lời giới thiệu ở trang đầu</label><input id="heroMessage" name="heroMessage" maxlength="200"></div>
+          <div class="field full"><label for="introTitle">Tiêu đề lời ngỏ</label><input id="introTitle" name="introTitle" maxlength="180"></div>
+          <div class="field full"><label for="introText">Nội dung lời ngỏ</label><textarea id="introText" name="introText" rows="4" maxlength="1000"></textarea></div>
+          <div class="field"><label for="date">Ngày cưới</label><input type="date" id="date" name="date" required></div>
+          <div class="field"><label for="time">Giờ lễ</label><input type="time" id="time" name="time" required></div>
+          <div class="field"><label for="receptionTime">Giờ tiệc</label><input type="time" id="receptionTime" name="receptionTime" required></div>
+          <div class="field"><label for="rsvpDeadline">Hạn xác nhận RSVP</label><input id="rsvpDeadline" name="rsvpDeadline" placeholder="10/03/2027" maxlength="30"></div>
+          <div class="field"><label for="ceremonyTitle">Tên mục lễ</label><input id="ceremonyTitle" name="ceremonyTitle" maxlength="100"></div>
+          <div class="field"><label for="receptionTitle">Tên mục tiệc</label><input id="receptionTitle" name="receptionTitle" maxlength="100"></div>
+          <div class="field"><label for="venue">Tên địa điểm</label><input id="venue" name="venue" maxlength="180"></div>
+          <div class="field"><label for="address">Địa chỉ</label><input id="address" name="address" maxlength="250"></div>
+          <div class="field full"><label for="mapUrl">Link Google Maps</label><input type="url" id="mapUrl" name="mapUrl" placeholder="https://maps.google.com/..."></div>
+          <div class="field full"><label for="detailsMessage">Lời nhắn ở phần ngày cưới</label><input id="detailsMessage" name="detailsMessage" maxlength="250"></div>
+          <div class="field full"><label for="signature">Chữ ký / lời mời</label><input id="signature" name="signature" maxlength="150"></div>
+          <div class="field full"><label for="closingText">Lời kết</label><textarea id="closingText" name="closingText" rows="2" maxlength="300"></textarea></div>
+          <div class="field full"><label for="heroImage">URL ảnh bìa</label><input type="url" id="heroImage" name="heroImage" placeholder="https://..."></div>
+          <div class="field full"><label for="heroAlt">Gợi ý</label><p class="small">Dùng URL ảnh công khai bắt đầu bằng https://. Tránh URL ảnh riêng tư hoặc link từ máy tính cá nhân.</p></div>
+          <div class="field full"><div class="admin-actions"><button class="admin-button" type="submit">Lưu thay đổi</button><button class="admin-button secondary" type="button" id="resetContent">Khôi phục nội dung mẫu</button></div><p id="contentStatus" class="admin-status" role="status"></p></div>
+        </form>
+      </section>
+      <section class="admin-panel" id="panel-photos">
+        <h2>Album & ảnh bìa</h2><p class="panel-desc">Dán URL ảnh công khai. Tối đa 8 ảnh trong album.</p>
+        <div id="photoFields" class="photo-fields"></div>
+        <div class="admin-actions"><button class="admin-button" id="savePhotos">Lưu album</button></div><p id="photoStatus" class="admin-status" role="status"></p>
+      </section>
+      <section class="admin-panel" id="panel-rsvps">
+        <h2>Phản hồi khách mời</h2><p class="panel-desc">Dữ liệu RSVP được lưu trong localStorage của trình duyệt đang mở trang thiệp.</p>
+        <div id="rsvpStats" class="notice"></div>
+        <div class="admin-actions"><button class="admin-button" id="exportCsv">Xuất CSV</button><button class="admin-button secondary" id="clearRsvps">Xóa RSVP trên trình duyệt này</button></div>
+        <div class="table-wrap" id="rsvpTable"></div>
+      </section>
+      <section class="admin-panel" id="panel-backup">
+        <h2>Sao lưu dữ liệu</h2><p class="panel-desc">Xuất dữ liệu thiệp thành JSON để sao lưu hoặc nhập lại sau này.</p>
+        <div class="notice"><strong>Lưu ý:</strong> localStorage chỉ dùng trong cùng trình duyệt và cùng domain. Khi triển khai website công khai, dữ liệu RSVP của khách không tự động gửi về máy quản trị. Không dùng bản này để lưu dữ liệu nhạy cảm hoặc làm hệ thống quản trị bảo mật.</div>
+        <div class="admin-actions"><button class="admin-button" id="exportJson">Tải bản sao lưu JSON</button><button class="admin-button secondary" id="importJson">Nhập bản sao lưu JSON</button><button class="admin-button secondary" id="resetAll">Khôi phục toàn bộ mẫu</button><input type="file" id="importFile" accept="application/json,.json" hidden></div>
+        <p id="backupStatus" class="admin-status" role="status"></p>
+      </section>
+    </main>
+  </div>
+  <script src="admin.js"></script>
+</body>
+</html>

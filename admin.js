@@ -8,7 +8,7 @@
     date:"2027-03-20",time:"11:00",receptionTime:"11:30",venue:"The Garden Hall",address:"25 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh",
     mapUrl:"https://maps.google.com/?q=25+Nguyen+Hue+Quan+1+TP+Ho+Chi+Minh",ceremonyTitle:"Lễ thành hôn",receptionTitle:"Tiệc mừng hạnh phúc",
     rsvpDeadline:"10/03/2027",closingText:"Hẹn gặp bạn ở ngày hạnh phúc nhất của chúng mình.",
-    heroImage:"https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1100&q=85",
+    heroImage:"Phóng_WAGO1064.JPG?auto=format&fit=crop&w=1100&q=85",
     photos:[
       {url:"https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=1000&q=80",alt:"Khoảnh khắc ngày cưới"},
       {url:"https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80",alt:"Ngày hạnh phúc"},

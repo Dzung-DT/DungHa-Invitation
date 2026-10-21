@@ -3,19 +3,19 @@
   const KEY = "weddingInvitationDataV1";
   const RSVP_KEY = "weddingInvitationRsvpV1";
   const defaults = {
-    bride:"Minh Anh", groom:"Quốc Minh", eyebrow:"SAVE THE DATE · 2027",
+    bride:"Trọng Dũng", groom:"Thu Hà", eyebrow:"Ngày chung đôi",
     heroMessage:"Một hành trình mới bắt đầu từ hôm nay.",
     introTitle:"Chúng mình sắp về chung một nhà!",
     introText:"Sau những ngày tháng cùng nhau viết nên câu chuyện nhỏ, chúng mình mong được chia sẻ khoảnh khắc đặc biệt này với những người thân yêu nhất.",
-    signature:"Thân mời, Minh Anh & Quốc Minh",
+    signature:"Thân mời, Trọng Dũng & Thu Hà",
     detailsMessage:"Sự hiện diện của bạn là niềm vui lớn với gia đình chúng mình.",
-    date:"2027-03-20", time:"11:00", receptionTime:"11:30",
-    venue:"The Garden Hall", address:"25 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh",
-    mapUrl:"https://maps.google.com/?q=25+Nguyen+Hue+Quan+1+TP+Ho+Chi+Minh",
+    date:"2026-11-16", time:"14:00", receptionTime:"11:30",
+    venue:"Tư gia nhà trai", address:"Xóm 1, Tổ dân phố Thượng Mão, Phường Mão Điền, Thành phố Bắc Ninh",
+    mapUrl:"https://maps.app.goo.gl/nwSwh5NCdH24ihhd8",
     ceremonyTitle:"Lễ thành hôn", receptionTitle:"Tiệc mừng hạnh phúc",
-    rsvpDeadline:"10/03/2027",
+    rsvpDeadline:"16/11/2026",
     closingText:"Hẹn gặp bạn ở ngày hạnh phúc nhất của chúng mình.",
-    heroImage:"https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1100&q=85",
+    heroImage:"Phóng_WAGO1064.JPG?auto=format&fit=crop&w=1100&q=85",
     photos:[
       {url:"https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=1000&q=80",alt:"Khoảnh khắc ngày cưới"},
       {url:"https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80",alt:"Ngày hạnh phúc"},
@@ -78,7 +78,7 @@
   function startCountdown(date,time){
     clearInterval(countdownTimer);
     const update=()=>{
-      const target=new Date(`${date||"2027-03-20"}T${time||"11:00"}:00`).getTime();
+      const target=new Date(`${date||"2026-11-16"}T${time||"14:00"}:00`).getTime();
       let diff=target-Date.now();const past=diff<0;diff=Math.abs(diff);
       const d=Math.floor(diff/86400000),h=Math.floor(diff%86400000/3600000),m=Math.floor(diff%3600000/60000),s=Math.floor(diff%60000/1000);
       const put=(id,val)=>{const el=document.getElementById(id);if(el)el.textContent=String(val).padStart(id==="days"?3:2,"0");};

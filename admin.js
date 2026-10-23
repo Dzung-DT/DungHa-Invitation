@@ -2,22 +2,44 @@
   "use strict";
   const KEY="weddingInvitationDataV1", RSVP_KEY="weddingInvitationRsvpV1";
   const defaults={
-    bride:"Minh Anh",groom:"Quốc Minh",eyebrow:"SAVE THE DATE · 2027",heroMessage:"Một hành trình mới bắt đầu từ hôm nay.",
+    bride:"Trọng Dũng",groom:"Thu Hà",eyebrow:"Ngày chung đôi",heroMessage:"Một hành trình mới bắt đầu từ hôm nay.",
     introTitle:"Chúng mình sắp về chung một nhà!",introText:"Sau những ngày tháng cùng nhau viết nên câu chuyện nhỏ, chúng mình mong được chia sẻ khoảnh khắc đặc biệt này với những người thân yêu nhất.",
-    signature:"Thân mời, Minh Anh & Quốc Minh",detailsMessage:"Sự hiện diện của bạn là niềm vui lớn với gia đình chúng mình.",
-    date:"2027-03-20",time:"11:00",receptionTime:"11:30",venue:"The Garden Hall",address:"25 Nguyễn Huệ, Quận 1, TP. Hồ Chí Minh",
+    signature:"Thân mời, Trọng Dũng & Thu Hà",detailsMessage:"Sự hiện diện của bạn là niềm vui lớn với gia đình chúng mình.",
+    date:"2026-11-16",time:"14:00",receptionDate:"2026-11-15",receptionTime:"16:00",venue:"Tư gia nhà trai",address:"Xóm 1, Tổ dân phố Thượng Mão, Phường Mão Điền, Thành phố Bắc Ninh",
     mapUrl:"https://maps.google.com/?q=25+Nguyen+Hue+Quan+1+TP+Ho+Chi+Minh",ceremonyTitle:"Lễ thành hôn",receptionTitle:"Tiệc mừng hạnh phúc",
     rsvpDeadline:"10/03/2027",closingText:"Hẹn gặp bạn ở ngày hạnh phúc nhất của chúng mình.",
-    heroImage:"Phóng_WAGO1064.JPG?auto=format&fit=crop&w=1100&q=85",
+    heroImage:"Phóng_WAGO1064.JPG",heroImage2:"Phóng_WAGO0967.JPG",
+    galleryVersion:"imagelist-v1",
     photos:[
-      {url:"https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=1000&q=80",alt:"Khoảnh khắc ngày cưới"},
-      {url:"https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80",alt:"Ngày hạnh phúc"},
-      {url:"https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=800&q=80",alt:"Kỷ niệm đôi mình"},
-      {url:"https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=1200&q=80",alt:"Cùng nhau trọn đời"}
+      {url:"ImageList/WAGO0685.JPG",alt:"Wedding photo 1"},
+      {url:"ImageList/WAGO0842.JPG",alt:"Wedding photo 2"},
+      {url:"ImageList/WAGO1008.JPG",alt:"Wedding photo 3"},
+      {url:"ImageList/WAGO1019.JPG",alt:"Wedding photo 4"},
+      {url:"ImageList/WAGO1162.JPG",alt:"Wedding photo 5"},
+      {url:"ImageList/WAGO1255.JPG",alt:"Wedding photo 6"},
+      {url:"ImageList/WAGO1475.JPG",alt:"Wedding photo 7"},
+      {url:"ImageList/WAGO1485.JPG",alt:"Wedding photo 8"},
+      {url:"ImageList/WAGO1536.JPG",alt:"Wedding photo 9"},
+      {url:"ImageList/WAGO1561.JPG",alt:"Wedding photo 10"},
+      {url:"ImageList/Để bàn_WAGO1301.JPG",alt:"Wedding photo 11"},
+      {url:"ImageList/Để bàn_WAGO1416.JPG",alt:"Wedding photo 12"},
+      {url:"ImageList/Để bàn_WAGO1514.JPG",alt:"Wedding photo 13"}
     ]
   };
   const $=id=>document.getElementById(id);
-  function load(){try{return {...defaults,...JSON.parse(localStorage.getItem(KEY)||"{}")}}catch{return {...defaults}}}
+  function load(){
+    try{
+      const saved=JSON.parse(localStorage.getItem(KEY)||"{}");
+      const data={...defaults,...saved};
+      if(saved.galleryVersion!==defaults.galleryVersion){data.photos=defaults.photos;data.galleryVersion=defaults.galleryVersion;save(data)}
+      if(!Object.prototype.hasOwnProperty.call(saved,"receptionDate")){
+        data.receptionDate=defaults.receptionDate;
+        data.receptionTime=defaults.receptionTime;
+        save(data);
+      }
+      return data;
+    }catch{return {...defaults}}
+  }
   function save(data){localStorage.setItem(KEY,JSON.stringify(data))}
   function rsvps(){try{return JSON.parse(localStorage.getItem(RSVP_KEY)||"[]")}catch{return []}}
   function flash(id,msg){$(id).textContent=msg}
@@ -27,7 +49,7 @@
   function renderPhotos(){
     const data=load(),container=$("photoFields");container.replaceChildren();
     const photos=[...(data.photos||[])];while(photos.length<4)photos.push({url:"",alt:""});
-    photos.slice(0,8).forEach((p,i)=>{
+    photos.slice(0,13).forEach((p,i)=>{
       const box=document.createElement("div");box.className="photo-row";
       const label=document.createElement("label");label.textContent=`Ảnh ${i+1} — URL`;label.htmlFor=`photoUrl${i}`;
       const url=document.createElement("input");url.id=`photoUrl${i}`;url.type="url";url.value=p.url||"";url.placeholder="https://...";
@@ -65,7 +87,7 @@
   });
   $("savePhotos").addEventListener("click",()=>{
     const data=load(),photos=[];
-    for(let i=0;i<8;i++){const url=$(`photoUrl${i}`);if(!url)continue;const value=url.value.trim();if(value)photos.push({url:value,alt:$(`photoAlt${i}`).value.trim()||`Ảnh cưới ${i+1}`})}
+    for(let i=0;i<13;i++){const url=$(`photoUrl${i}`);if(!url)continue;const value=url.value.trim();if(value)photos.push({url:value,alt:$(`photoAlt${i}`).value.trim()||`Ảnh cưới ${i+1}`})}
     data.photos=photos;save(data);flash("photoStatus","Đã lưu album ảnh.");
   });
   $("exportCsv").addEventListener("click",()=>{
